@@ -15,6 +15,5 @@ export class Tema {
 
     // Relação com a Classe Postagem, Classe Tema será 1:N - OneToMany
     @OneToMany(() => Postagem, (postagem) => postagem.tema)
-    postagem: Postagem[];
-
+    postagem: Postagem[]; // objeto array: para somente mostar as postagens
 }

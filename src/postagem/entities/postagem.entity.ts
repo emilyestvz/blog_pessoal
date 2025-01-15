@@ -31,7 +31,9 @@ export class Postagem {
 
   // Criação da Relação ManytoOne N:1 com a classe Tema
   @ManyToOne(() => Tema, (tema) => tema.postagem, {
-    onDelete: "CASCADE"
+    onDelete: "CASCADE" // definição da propriedade onDelete (efeito cascata: apagou tema, apagou postagem)
   })
-  tema: Tema; // create column tema_id INT NOT NULL
+  
+  // create column tema_id INT NOT NULL
+  tema: Tema; // objeto 
 }

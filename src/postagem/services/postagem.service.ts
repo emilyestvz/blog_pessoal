@@ -14,12 +14,14 @@ export class PostagemService {
     ){}
 
     // Listagem
+    // select * from tb_postagens;
     async findAll(): Promise<Postagem[]> {
-        return await this.postagemRepository.find({
+        return this.postagemRepository.find({
+            // habilitando o relacionamento na consulta
             relations: {
                 tema: true
             }
-        }); // select * from tb_postagens;
+        }); 
     }
 
     // Consulta por ID
@@ -57,12 +59,7 @@ export class PostagemService {
     async create(postagem: Postagem): Promise<Postagem> {
 
         // verifica se tem um tema associado
-        if(!postagem.tema) {
-            const tema = await this.temaService.findById(postagem.tema.id);
-            postagem.tema = tema;
-        }
-
-        postagem.data = new Date(); // seta a data atual no momento da criação
+        await this.temaService.findById(postagem.tema.id);
 
         // await para n travar a app enquanto salva e aguardar a promise
         return await this.postagemRepository.save(postagem); // insert into tb_postagens (titulo, texto, data) values ('Novo Título', 'Novo Texto', NOW());
@@ -72,14 +69,8 @@ export class PostagemService {
     async update(postagem: Postagem): Promise<Postagem> {
 
         // verifica se tem um tema associado
-        if(!postagem.tema) {
-            const tema = await this.temaService.findById(postagem.tema.id);
-            postagem.tema = tema;
-        }
-        
-        postagem.data = new Date(); // atualiza a data atual no momento da atualização
-        
         await this.findById(postagem.id);
+        await this.temaService.findById(postagem.tema.id)
 
         /* update tb_postagens set titulo = postagem.titulo, texto = postagem.texto, 
         data = current_timestamp() where id = postagem.id */
