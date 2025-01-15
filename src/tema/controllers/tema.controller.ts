@@ -14,7 +14,7 @@ export class TemaController {
 
   @Get('/:id')
   @HttpCode(HttpStatus.OK)
-  findById(@Param('id', ParseIntPipe) id: number): Promise<Tema> {
+  findById(@Param('id', ParseIntPipe) id: number): Promise<Tema> { // @Param para definir variáveis ​​de URL para endpoints
     return this.temaService.findById(id);
   }
 
@@ -26,7 +26,7 @@ export class TemaController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  create(@Body() tema: Tema): Promise<Tema> {
+  create(@Body() tema: Tema): Promise<Tema> { // @Body para enviar informações no corpo da solicitação
     return this.temaService.create(tema);
   }
 
