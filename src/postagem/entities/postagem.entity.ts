@@ -2,6 +2,7 @@ import { Transform, TransformFnParams } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Tema } from '../../tema/entities/tema.entity';
+import { Usuario } from '../../usuario/entities/usuario.entity';
 
 // CRIAÇÃO DA CLASSE MODEL
 
@@ -28,12 +29,19 @@ export class Postagem {
   // create column data DATE NOT NULL
   @UpdateDateColumn() 
   data: Date;
+  
+  
 
-  // Criação da Relação ManytoOne N:1 com a classe Tema
+  // Criação do primeiro Relacionamento ManytoOne N:1 com a classe Tema
   @ManyToOne(() => Tema, (tema) => tema.postagem, {
     onDelete: "CASCADE" // definição da propriedade onDelete (efeito cascata: apagou tema, apagou postagem)
   })
-  
   // create column tema_id INT NOT NULL
   tema: Tema; // objeto 
+
+  // Criação do segundo Relacionamento ManytoOne N:1 com a classe Usuario
+  @ManyToOne(() => Usuario, (usuario) => usuario.postagem, {
+    onDelete: "CASCADE" 
+  })
+  usuario: Usuario; 
 }
