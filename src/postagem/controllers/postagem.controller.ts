@@ -1,8 +1,10 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put, UseGuards } from "@nestjs/common";
 import { PostagemService } from "../services/postagem.service";
 import { Postagem } from "../entities/postagem.entity";
+import { JwtAuthGuard } from "../../auth/guard/jwt-auth.guard";
 
 // MÉTODOS CRUD
+@UseGuards(JwtAuthGuard) // colocando a proteção na classe, para q todos sejam protegidos
 @Controller('/postagens')
 export class PostagemController {
 

@@ -19,7 +19,8 @@ export class PostagemService {
         return this.postagemRepository.find({
             // habilitando o relacionamento na consulta
             relations: {
-                tema: true
+                tema: true,
+                usuario: true
             }
         }); 
     }
@@ -32,7 +33,8 @@ export class PostagemService {
                 id
             },
             relations: {
-                tema: true
+                tema: true,
+                usuario: true
             }
         });
 
@@ -50,7 +52,8 @@ export class PostagemService {
                 titulo: ILike(`%${titulo}%`) // ILike - Case Insensitive | Like - Case Sensitive
             },
             relations: {
-                tema: true
+                tema: true,
+                usuario: true
             }
         }); 
     }
@@ -67,6 +70,9 @@ export class PostagemService {
 
     // Método update
     async update(postagem: Postagem): Promise<Postagem> {
+
+        if(!postagem.id || postagem.id < 0)
+            throw new HttpException('ID da postagem inválido!', HttpStatus.BAD_REQUEST)
 
         // verifica se tem um tema associado
         await this.findById(postagem.id);
