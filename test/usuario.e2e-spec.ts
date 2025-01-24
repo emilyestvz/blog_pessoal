@@ -105,5 +105,15 @@ describe('Testes dos Módulos Usuario e Auth (e2e)', () => {
     })
   });
 
+  it('06 - Deve buscar o ID do usuário', async () => {
+    return await request(app.getHttpServer())
+    .get(`/usuarios/${usuarioId}`)
+    .set('Authorization', `${token}`)
+    .expect(200)
+    .then(resposta => {
+      expect(usuarioId).toEqual(resposta.body.id);
+    })
+  });
+
  
 });
