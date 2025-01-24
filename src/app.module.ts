@@ -7,7 +7,6 @@ import { Tema } from './tema/entities/tema.entity';
 import { AuthModule } from './auth/auth.module';
 import { Usuario } from './usuario/entities/usuario.entity';
 import { UsuarioModule } from './usuario/usuario.module';
-import { LocalAuthGuard } from './auth/guard/local-auth.guard';
 
 @Module({
   imports: [
@@ -20,6 +19,7 @@ import { LocalAuthGuard } from './auth/guard/local-auth.guard';
       database: 'db_blogpessoal',
       entities: [Postagem, Tema, Usuario],
       synchronize: true,
+      // logging: true,
     }),
     PostagemModule,
     TemaModule,
